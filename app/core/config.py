@@ -23,7 +23,7 @@ class Settings:
     @property
     def ASYNC_DATABASE_URL(self):
         return (
-            f"mysql+asyncmy://{self.DB_USER}:{self.DB_PASSWORD}@"
+            f"mysql+aiomysql://{self.DB_USER}:{self.DB_PASSWORD}@"
             f"{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
         )
 

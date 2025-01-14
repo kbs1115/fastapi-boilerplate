@@ -31,5 +31,6 @@ app = create_app()
 async def on_startup():
     await init_models()  # 테이블 자동 생성 (개발용)
 
+# terminal : uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
