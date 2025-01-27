@@ -2,19 +2,13 @@
 from typing import List
 from fastapi import APIRouter, Depends
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.database import get_db
-from app.domain.user.service import UserService
+from app.domain.user.service import UserService, get_user_service
 from app.schemas.user_schema import UserCreate, UserRead
 
 router = APIRouter(
     prefix="/api/v1/users",
     tags=["Users"],
 )
-
-# Dependency for UserService
-def get_user_service(db: AsyncSession = Depends(get_db)) -> UserService:
-    return UserService(db)
 
 @router.post("/", response_model=UserRead)
 async def create_user(

@@ -1,12 +1,15 @@
 # app/services/user_service.py
 from typing import Optional, List
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.database import get_db
 from app.domain.user.repository import UserRepository
 from app.base.base_service import BaseService
 from app.schemas.user_schema import UserCreate, UserRead
 from app.utils.password import hash_password
+
 
 class UserService(BaseService):
     def __init__(self, db: AsyncSession):
@@ -46,3 +49,8 @@ class UserService(BaseService):
                 detail="User not found"
             )
         await self.user_repository.delete(user_id)
+
+
+# Dependency for UserService
+def get_user_service(db: AsyncSession = Depends(get_db)) -> UserService:
+    return UserService(db)
