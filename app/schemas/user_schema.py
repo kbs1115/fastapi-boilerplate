@@ -1,7 +1,9 @@
 # app/schemas/user_schema.py
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import EmailStr, Field
+from app.base.base_response import BaseResponse
+from app.base.base_request import BaseRequest
 
-class UserBase(BaseModel):
+class UserBase(BaseResponse):
     email: EmailStr
     full_name: str | None = None
     is_admin: bool = False
@@ -12,14 +14,11 @@ class UserCreate(UserBase):
 class UserRead(UserBase):
     id: int
 
-    class Config:
-        orm_mode = True
-
-class UserLogin(BaseModel):
+class UserLogin(BaseRequest):
     email: EmailStr
     password: str
 
-class TokenResponse(BaseModel):
+class TokenResponse(BaseResponse):
     access_token: str
     refresh_token: str
     token_type: str

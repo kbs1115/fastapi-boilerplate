@@ -15,7 +15,10 @@ from app.models.user import User
 from app.schemas.user_schema import UserLogin, TokenResponse
 from app.utils.password import verify_password
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/api/v1/auth",
+    tags=["Auth"],
+)
 
 @router.post("/login", response_model=TokenResponse)
 async def login(user_login: UserLogin, db: AsyncSession = Depends(get_db)):

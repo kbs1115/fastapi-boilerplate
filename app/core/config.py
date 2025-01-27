@@ -28,7 +28,7 @@ class Settings(BaseSettings):
         )
         print(f"ASYNC_DATABASE_URL: {url}")  # 디버깅용 출력
         return url
-    
+
     model_config = SettingsConfigDict(env_file=f"{PROJECT_DIR}/.env", case_sensitive=True)
 
 settings = Settings()
